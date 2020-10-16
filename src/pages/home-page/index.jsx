@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import Directory from '../../components/directory';
-import data from '../../mock/data.js';
+import menu from '../../mock/menu.js';
 import styles from './home-page.module.scss';
 
 class HomePage extends Component {
-  state = { data: data }
+  state = { data: menu }
 
   componentDidMount() {
     console.log('fetch someting')
@@ -16,11 +15,8 @@ class HomePage extends Component {
   render() {
     const { data } = this.state;
     return (
-      <div className={styles["homepage"]}>		
-        <Switch>
-          <Route path="/" exact render={(props) =><Directory {...props} data={data} />} />
-          <Route path="/:id" component={() => <h1>Test</h1>} />
-        </Switch>	
+      <div className={styles["homepage"]}>
+        <Directory data={data} />
       </div>
     )
   }
