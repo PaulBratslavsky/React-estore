@@ -1,6 +1,13 @@
 .main-layout {
     height: 100vh;
     display: grid;
+    width: 1280px;
+    margin: 0 auto;
     grid-template-rows: 75px 1fr 55px;
+    padding: 0 0.5rem;
+    row-gap: 1rem;
 }
-  
+
+.main-content {
+    padding: 1rem;   
+}

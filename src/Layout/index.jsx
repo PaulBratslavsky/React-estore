@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './layout.module.scss';
+import Header from '../components/header';
 
 export default function Layout({children}) {
     return <div className={styles['main-layout']}>
-        <nav>Navigation</nav>
-        {children}  
+        <Header />
+        <div className={styles['main-content']}>{children}</div> 
         <footer>Footer</footer>      
     </div>
 }

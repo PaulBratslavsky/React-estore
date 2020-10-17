@@ -1,0 +1,18 @@
+.form-container {
+    span {
+        color: white;
+        font-size: 1.3rem;
+    }
+}
+
+.form {
+    color: white;
+    margin: 3rem auto;
+    display: grid;
+    grid-template-rows: auto;
+    row-gap: 1rem;
+}
+
+.form-input {
+    font-size: 1.4rem;
+}

@@ -1,0 +1,37 @@
+.collection-item {
+  width: 22%;
+  flex-direction: column;
+  overflow: hidden;
+  height: 350px;
+  background: white;
+  position: relative;
+  transform: rotate(0deg);
+  transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:hover {
+    transform: rotate(3deg) scale(1.05);
+  }
+
+  .image {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    margin: 0.5rem;
+  }
+
+  .collection-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    padding: 1rem;
+    background: white;
+    
+    .price {
+      font-weight: bold;
+    }
+  }
+  
+}
