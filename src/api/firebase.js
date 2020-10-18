@@ -16,7 +16,7 @@ const config = {
   export async function createUserProfileDocument(userAuth, additionalData) {
     if (!userAuth) return
 
-    const userRef = firestore.doc(`userts/${userAuth.uid}`)
+    const userRef = firestore.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get()
 
     if (!snapShot.exists) {
@@ -29,6 +29,8 @@ const config = {
         createdOn,
         ...additionalData
       }
+
+      console.log(userObject, "FINAL DATA BEFORE WRITTING")
  
       try {
         await userRef.set(userObject)

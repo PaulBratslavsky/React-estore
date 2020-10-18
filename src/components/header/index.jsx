@@ -5,7 +5,11 @@ import { auth } from '../../api/firebase'
 
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
-export default function Header({user}) {
+export default function Header({user,setUser}) {
+    function handleSignOut() {
+        auth.signOut()
+        setUser(null)
+    }
     return <header className={styles['header']}>
         <div className={styles['logo-container']}>
             <Link className={styles['logo']} to="/"><Logo /></Link>
@@ -14,8 +18,8 @@ export default function Header({user}) {
             <Link className={styles['link']} to="/shop">Shop</Link>
             <Link className={styles['link']} to="/contact">Contact</Link>
             {   
-                user 
-                ? <button className={styles['sign-out']} onClick={() => auth.signOut()}>Sign Out</button>
+                user !== null 
+                ? <button className={styles['sign-out']} onClick={handleSignOut}>Sign Out</button>
                 : <Link className={styles['link']} to="/auth/signin">Sign In</Link>
             }
         </nav> 

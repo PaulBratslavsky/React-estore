@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './auth.module.scss'
-import { signInWithGoogle } from '../../api/firebase'
+import { signInWithGoogle, auth } from '../../api/firebase'
 import TextInput from '../../components/text-input'
 
 const initialState = {
@@ -13,9 +13,16 @@ export default function SignIn() {
 
     const [ formData, setFormData ] = useState(initialState)
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData, 'from form');
+        const { email, password } = formData
+
+        try {
+            await auth.signInWithEmailAndPassword(email,password)
+        } catch (err) {
+            console.error(`AUTH ERROR SIGNIN: ${err}`)
+        }
+
         setFormData(initialState);
     }
 
