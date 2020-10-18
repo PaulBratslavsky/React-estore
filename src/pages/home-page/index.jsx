@@ -6,10 +6,6 @@ import styles from './home-page.module.scss';
 class HomePage extends Component {
   state = { data: menu }
 
-  componentDidMount() {
-    console.log('fetch someting')
-  }
-
   // use arrow functions to avoid binding
 
   render() {

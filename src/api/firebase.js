@@ -29,8 +29,6 @@ const config = {
         createdOn,
         ...additionalData
       }
-
-      console.log(userObject, "FINAL DATA BEFORE WRITTING")
  
       try {
         await userRef.set(userObject)

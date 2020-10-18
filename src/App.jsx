@@ -14,7 +14,6 @@ function App({history, user, setUser}) {
     const unsubsribe = auth.onAuthStateChanged( async userAuth => { 
       const userRef = await createUserProfileDocument(userAuth)
       if (userAuth && user === null) {
-        console.log(setUser, "FUCK")
         setUser(userAuth)
 
         userRef.onSnapshot(snapShot => setUser({
@@ -27,8 +26,6 @@ function App({history, user, setUser}) {
     });
     return () => unsubsribe()
   },[user, history, setUser])
-
-  console.log(user, "CURRENT USER");
 
   return <Layout user={user} setUser={setUser}>
       <Switch>

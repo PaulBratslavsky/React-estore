@@ -13,7 +13,6 @@ function Header({user, setUser}) {
         setUser(null)
     }
 
-    console.log(user, "SHOUL BE FROM REDUX")
     return <header className={styles['header']}>
         <div className={styles['logo-container']}>
             <Link className={styles['logo']} to="/"><Logo /></Link>
