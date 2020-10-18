@@ -4,7 +4,7 @@ import Header from '../components/header';
 
 export default function Layout({children, user, setUser}) {
     return <div className={styles['main-layout']}>
-        <Header user={user} setUser={setUser} />
+        <Header />
         <div className={styles['main-content']}>{children}</div> 
         <footer>Footer</footer>      
     </div>

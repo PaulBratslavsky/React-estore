@@ -2,14 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './header.module.scss'
 import { auth } from '../../api/firebase'
+import { connect } from 'react-redux'
+import { setUser } from '../../redux/user/user.actions'
 
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
-export default function Header({user,setUser}) {
+function Header({user, setUser}) {
     function handleSignOut() {
         auth.signOut()
         setUser(null)
     }
+
+    console.log(user, "SHOUL BE FROM REDUX")
     return <header className={styles['header']}>
         <div className={styles['logo-container']}>
             <Link className={styles['logo']} to="/"><Logo /></Link>
@@ -25,3 +29,10 @@ export default function Header({user,setUser}) {
         </nav> 
     </header>
 }
+
+const mapStateToProps = state => ({
+    user: state.user.user
+})
+
+
+export default connect(mapStateToProps, { setUser })(Header)

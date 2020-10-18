@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from './pages/home-page'
 import ShopPage from './pages/shop-page'
 import Auth from './pages/auth'
+import { connect } from 'react-redux'
 import { auth, createUserProfileDocument } from './api/firebase'
+import { setUser } from './redux/user/user.actions'
 
-function App({history}) {
-  const [ user, setUser ] = useState(null)
+function App({history, user, setUser}) {
 
   useEffect(() => {
     const unsubsribe = auth.onAuthStateChanged( async userAuth => { 
       const userRef = await createUserProfileDocument(userAuth)
       if (userAuth && user === null) {
+        console.log(setUser, "FUCK")
         setUser(userAuth)
 
         userRef.onSnapshot(snapShot => setUser({
@@ -24,7 +26,7 @@ function App({history}) {
       } 
     });
     return () => unsubsribe()
-  },[user, history])
+  },[user, history, setUser])
 
   console.log(user, "CURRENT USER");
 
@@ -38,4 +40,12 @@ function App({history}) {
     </Layout>	
 }
 
-export default withRouter(App)
+const mapStateToProps = state => ({
+  user: state.user.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
