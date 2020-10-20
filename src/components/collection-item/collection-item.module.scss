@@ -19,6 +19,30 @@
     margin: 0.5rem;
   }
 
+  .add-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    height: 30px;
+    width: 30px;
+
+    color: #0c1317;
+    background: #ec622d;
+    border-radius: 50%;
+
+    &:hover {
+      color:  #ec622d;
+      background: #0c1317;
+    }
+
+    font-weight: bold;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
   .collection-footer {
     position: absolute;
     bottom: 0;
@@ -28,10 +52,9 @@
     font-size: 1.4rem;
     padding: 1rem;
     background: white;
-    
+
     .price {
       font-weight: bold;
     }
   }
-  
 }

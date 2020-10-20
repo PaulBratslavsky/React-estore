@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './auth.module.scss'
 import { signInWithGoogle, auth } from '../../api/firebase'
 import TextInput from '../../components/text-input'
+import Button from '../../components/button'
 
 const initialState = {
     email: '',
@@ -53,7 +54,7 @@ export default function SignIn() {
         </form>
 
         <h2>Use your Google account to sign in.</h2>
-        <button type="button" onClick={signInWithGoogle}>Sign In With Google</button>
+        <Button onClick={signInWithGoogle} label="Sign In With Google" />
 
     </div>
 }

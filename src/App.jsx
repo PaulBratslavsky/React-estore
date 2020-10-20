@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from './pages/home-page'
 import ShopPage from './pages/shop-page'
@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { auth, createUserProfileDocument } from './api/firebase'
 import { setUser } from './redux/user/user.actions'
 
-function App({history, user, setUser}) {
+function App({user, setUser}) {
 
   useEffect(() => {
     const unsubsribe = auth.onAuthStateChanged( async userAuth => { 
@@ -20,19 +20,17 @@ function App({history, user, setUser}) {
           id: snapShot.id,
           ...snapShot.data(),
         }))
-
-        history.push('/');
       } 
     });
     return () => unsubsribe()
-  },[user, history, setUser])
+  },[user, setUser])
 
   return <Layout user={user} setUser={setUser}>
       <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/shop" exact component={ShopPage} />
           <Route path="/shop/:id" component={() => <h1>Test</h1>} />
-          <Route path="/auth/" component={Auth} />
+          <Route path="/auth/" render={() => user ? <Redirect to="/" /> : <Auth />} />
         </Switch>
     </Layout>	
 }

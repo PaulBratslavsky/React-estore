@@ -1,0 +1,24 @@
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 2px solid #ec622d;
+  color: whitesmoke;
+  cursor: pointer;
+
+  &:hover {
+    background: #ec622d;
+    color: black;
+    
+  }
+}
+
+.icon-count {
+  font-weight: bold;
+  font-size: 1.2rem;
+  
+}

@@ -4,8 +4,9 @@ import styles from './header.module.scss'
 import { auth } from '../../api/firebase'
 import { connect } from 'react-redux'
 import { setUser } from '../../redux/user/user.actions'
-
+import CartIcon from '../../components/cart-icon'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
+import CartDropdown from '../cart-dropdown'
 
 function Header({user, setUser}) {
     function handleSignOut() {
@@ -25,7 +26,9 @@ function Header({user, setUser}) {
                 ? <button className={styles['sign-out']} onClick={handleSignOut}>Sign Out</button>
                 : <Link className={styles['link']} to="/auth/signin">Sign In</Link>
             }
+            <CartIcon count={10}/>
         </nav> 
+        <CartDropdown />
     </header>
 }
 
