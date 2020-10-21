@@ -7,6 +7,8 @@ import { setUser } from '../../redux/user/user.actions'
 import CartIcon from '../../components/cart-icon'
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 import CartDropdown from '../cart-dropdown'
+import { selectCurrentUser } from '../../redux/user/user.selector'
+import { createStructuredSelector } from 'reselect'
 
 function Header({user, setUser}) {
     function handleSignOut() {
@@ -32,8 +34,8 @@ function Header({user, setUser}) {
     </header>
 }
 
-const mapStateToProps = state => ({
-    user: state.user.user
+const mapStateToProps = createStructuredSelector({
+    user: selectCurrentUser
 })
 
 

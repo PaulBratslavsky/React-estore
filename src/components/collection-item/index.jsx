@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styles from './collection-item.module.scss'
 import { addItem } from '../../redux/cart/cart.actions'
+import { selectCartItems } from '../../redux/cart/cart.selectors'
+import { createStructuredSelector } from 'reselect'
 
 function CollectionItem({item, cartItems, addItem}) {
     const [ itemsCount, setItemsCount ] = useState(0)
@@ -20,8 +22,8 @@ function CollectionItem({item, cartItems, addItem}) {
     </div>
 }
 
-const mapStateToProps = (state) => ({
-    cartItems: state.cart.cartItems
+const mapStateToProps = createStructuredSelector({
+    cartItems: selectCartItems
 })
 
 export default connect(mapStateToProps, { addItem })(CollectionItem)
