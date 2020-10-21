@@ -3,13 +3,18 @@ import styles from './cart-icon.module.scss'
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg'
 import { connect } from 'react-redux'
 import { toggleCart } from '../../redux/cart/cart.actions'
+import { selectItemsCartCount } from '../../redux/cart/cart.selectors.js'
 
-function CartIcon({count = 0, toggleCart}) {
+function CartIcon({itemsCount, toggleCart}) {
 
     return <div className={styles['icon-container']} onClick={toggleCart}>
         <ShoppingIcon />    
-        <span className={styles['icon-count']}>{count}</span>
+        <span className={styles['icon-count']}>{itemsCount}</span>
     </div>
 }
 
-export default connect(null, {toggleCart})(CartIcon)
+const mapStateToProps = (state) => ({
+    itemsCount: selectItemsCartCount(state)
+})
+
+export default connect(mapStateToProps, {toggleCart})(CartIcon)
