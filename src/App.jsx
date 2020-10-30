@@ -3,6 +3,7 @@ import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from './pages/home-page'
 import ShopPage from './pages/shop-page'
+import CheckoutPage from './pages/checkout-page'
 import Auth from './pages/auth'
 import { connect } from 'react-redux'
 import { auth, createUserProfileDocument } from './api/firebase'
@@ -30,6 +31,7 @@ function App({user, setUser}) {
           <Route path="/" exact component={HomePage} />
           <Route path="/shop" exact component={ShopPage} />
           <Route path="/shop/:id" component={() => <h1>Test</h1>} />
+          <Route path="/checkout" exact component={CheckoutPage} />
           <Route path="/auth/" render={() => user ? <Redirect to="/" /> : <Auth />} />
         </Switch>
     </Layout>	
