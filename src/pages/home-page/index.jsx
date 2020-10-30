@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
-import Directory from '../../components/directory';
-import menu from '../../mock/menu.js';
-import styles from './home-page.module.scss';
+import React from 'react'
+import Directory from '../../components/directory'
+import styles from './home-page.module.scss'
+import { connect } from 'react-redux'
+import { selectDirectoryItems } from '../../redux/directory/directory.selector'
+import { createStructuredSelector } from 'reselect'
 
-class HomePage extends Component {
-  state = { data: menu }
-
-  // use arrow functions to avoid binding
-
-  render() {
-    const { data } = this.state;
-    return (
-      <div className={styles["homepage"]}>
-        <Directory data={data} />
-      </div>
-    )
-  }
-
+function HomePage({menu = []}) {
+    return <div className={styles["homepage"]}>
+      <Directory data={menu} />
+    </div>
 }
 
-export default HomePage
+const mapStateToProps = createStructuredSelector({
+  menu: selectDirectoryItems
+})
+
+export default connect(mapStateToProps)(HomePage)
