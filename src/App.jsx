@@ -8,6 +8,7 @@ import Auth from './pages/auth'
 import { connect } from 'react-redux'
 import { auth, createUserProfileDocument } from './api/firebase'
 import { setUser } from './redux/user/user.actions'
+import CategoryPage from './pages/category-page'
 
 function App({user, setUser}) {
 
@@ -30,9 +31,9 @@ function App({user, setUser}) {
       <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/shop" exact component={ShopPage} />
-          <Route path="/shop/:id" component={() => <h1>Test</h1>} />
+          <Route path="/shop/:categoryID" exact component={CategoryPage} />
           <Route path="/checkout" exact component={CheckoutPage} />
-          <Route path="/auth/" render={() => user ? <Redirect to="/" /> : <Auth />} />
+          <Route path="/auth" render={() => user ? <Redirect to="/" /> : <Auth />} />
         </Switch>
     </Layout>	
 }
