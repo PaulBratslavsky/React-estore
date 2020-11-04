@@ -1,13 +1,5 @@
 import { createSelector } from 'reselect'
 
-const CATEGORY_ID_MAP = {
-    hats: 1,
-    sneakers: 2,
-    jackets: 3,
-    womens: 4,
-    mens: 5,
-}
-
 const selectProducts = state => state.items
 
 export const selectProductItems = createSelector(
@@ -15,7 +7,12 @@ export const selectProductItems = createSelector(
     (items) => items
 )
 
+export const selectProductToArray = createSelector(
+    [selectProducts],
+    (items) => Object.keys(items).map(key => items[key])
+)
+
 export const selectCategory = categoryID => createSelector(
     [selectProducts],
-    (items) => items.find(item => item.id === CATEGORY_ID_MAP[categoryID])
+    (items) => items[categoryID]
 )

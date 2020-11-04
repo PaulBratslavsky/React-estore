@@ -30,4 +30,20 @@
     font-size: 36px;
     color: #cecece;
   }
+
+  .warning {
+    width: 100%;
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    background: rgb(224, 75, 105);
+    border-radius: 4px;
+    
+
+
+    p {
+      margin: 4px;
+    }
+  }
+
 }
