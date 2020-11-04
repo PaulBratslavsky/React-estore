@@ -30,13 +30,13 @@ function CheckoutPage({cartItems, totalPrice}) {
         }
         <div className={styles['total']}>
             <span>TOTAL: ${totalPrice.toFixed(2)} </span> 
-            { cartItems.length !== 0 && <StripeButton label="Check Out" price={totalPrice.toFixed(2)} />  } 
+            {/* { cartItems.length !== 0 && <StripeButton label="Check Out" price={totalPrice.toFixed(2)} />  }  */}
         </div>
-        <div className={styles['warning']}>
+        {/* <div className={styles['warning']}>
             <p>Please use the following test credit card information</p>
             <p>CreditCard: 4242 4242 4242 4242</p>
             <p><span>Exp: 01/21</span>{' '}<span>Code: 123</span></p>
-        </div>
+        </div> */}
     </div>
  
 }
