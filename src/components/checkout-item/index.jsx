@@ -5,7 +5,6 @@ import { clearCart, addItem, removeItem } from '../../redux/cart/cart.actions'
 
 function CheckoutItem({item, clearCart, addItem, removeItem}) {
     const { name,imageUrl,quantity,price } = item;
-    console.log(item);
     return <div className={styles['checkout-item']}>
         <div className={styles['image-container']}>
             <img src={imageUrl} alt={name} />

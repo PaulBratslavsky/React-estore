@@ -4,8 +4,8 @@ import CollectionItem from '../collection-item'
 
 export default function CollectionOverview({products}) {
 
-    if (!products.title) return <h2>No itmes  found</h2>
-    
+    if (!products.title) return <h2>Loading</h2>
+
     return <div>
         <h1>{products.title}</h1>
         <div className={styles['overview']}>

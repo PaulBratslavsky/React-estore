@@ -5,10 +5,12 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { selectProductToArray } from '../../redux/products/products.selector'
 
-function ShopPage({products = []}){
+function ShopPage({products}){
+        if (!products.length) return <h1>Loading</h1>
         return <div className={styles['shop-page']}>
-            { products.map((item) => 
-                <PreviewCollection key={item.id} {...item} />) 
+            { products.map((item) => {
+                return <PreviewCollection key={item.id} {...item} />
+            }) 
             }
         </div> 
 }

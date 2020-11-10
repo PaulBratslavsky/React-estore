@@ -9,10 +9,12 @@ export const selectProductItems = createSelector(
 
 export const selectProductToArray = createSelector(
     [selectProducts],
-    (items) => Object.keys(items).map(key => items[key])
+    (items) => {
+        return items ? Object.keys(items).map(key => items[key]) : []
+    }
 )
 
 export const selectCategory = categoryID => createSelector(
     [selectProducts],
-    (items) => items[categoryID]
+    (items) => items ? items[categoryID] : []
 )

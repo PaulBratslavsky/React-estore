@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect'
 import { selectCartItems, selectItemsCartTotal } from '../../redux/cart/cart.selectors'
 import CheckoutItem from '../../components/checkout-item'
 import { connect } from 'react-redux'
-import StripeButton from '../../components/stripe-button'
+// import StripeButton from '../../components/stripe-button'
 
 const sectionNames = [ 'Product', 'Description', 'Quantity', 'Price', 'Remove' ]
 
@@ -18,7 +18,6 @@ const HeaderBlock = ({sectionName}) => (
 function CheckoutPage({cartItems, totalPrice}) {
 
     React.useEffect(() => {
-        console.log(cartItems, `Total price: ${totalPrice}`)
     }, [cartItems, totalPrice])
 
     return <div className={styles['checkout-page']}>

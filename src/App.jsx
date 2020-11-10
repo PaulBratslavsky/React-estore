@@ -6,18 +6,21 @@ import ShopPage from './pages/shop-page'
 import CheckoutPage from './pages/checkout-page'
 import Auth from './pages/auth'
 import { connect } from 'react-redux'
-import { auth, createUserProfileDocument } from './api/firebase'
+import { auth, database, createUserProfileDocument, convertCollectionSnapshot } from './api/firebase'
 import { setUser } from './redux/user/user.actions'
-import CategoryPage from './pages/category-page'
+import { createStructuredSelector } from 'reselect'
+import { selectCurrentUser } from './redux/user/user.selector'
 
-function App({user, setUser}) {
+import CategoryPage from './pages/category-page'
+import { setProducts } from './redux/products/products.actions'
+
+function App({user, setUser, setProducts }) {
 
   useEffect(() => {
     const unsubsribe = auth.onAuthStateChanged( async userAuth => { 
       const userRef = await createUserProfileDocument(userAuth)
       if (userAuth && user === null) {
         setUser(userAuth)
-
         userRef.onSnapshot(snapShot => setUser({
           id: snapShot.id,
           ...snapShot.data(),
@@ -26,6 +29,17 @@ function App({user, setUser}) {
     });
     return () => unsubsribe()
   },[user, setUser])
+
+  useEffect(() => {
+
+    const unsubsribe = database
+      .collection('collections')
+      .onSnapshot(snapshot => {
+        setProducts(convertCollectionSnapshot(snapshot))
+      })
+
+    return () => unsubsribe()
+  })
 
   return <Layout user={user} setUser={setUser}>
       <Switch>
@@ -38,12 +52,14 @@ function App({user, setUser}) {
     </Layout>	
 }
 
-const mapStateToProps = state => ({
-  user: state.user.user
+
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser,
 })
 
-const mapDispatchToProps = dispatch => ({
-  setUser: user => dispatch(setUser(user))
-})
+// const mapDispatchToProps = dispatch => ({
+//   setUser: user => dispatch(setUser(user)),
+//   setProducts: products => dispatch(setProducts(products))
+// })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, { setUser, setProducts })(App))

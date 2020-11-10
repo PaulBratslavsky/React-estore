@@ -12,11 +12,36 @@ const config = {
     appId: "1:480667406531:web:7fe653776068f7e26bd276",
     measurementId: "G-R86D1JLZ1V"
   };
+
+  export function convertCollectionSnapshot(data) {
+    let transformedData = [];
+
+    data.forEach(item => {
+      const { title, items } = item.data()
+
+      const newObject = {
+        routeName: encodeURI(title.toLowerCase()),
+        id: item.id,
+        title,
+        items,
+      }
+  
+      transformedData.push(newObject) 
+
+    })
+
+    const result = transformedData.reduce((acc, item) => {
+      acc[item.title.toLowerCase()] = item
+      return acc
+    },{})
+    
+    return result;
+  }
   
   export async function createUserProfileDocument(userAuth, additionalData) {
     if (!userAuth) return
 
-    const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const userRef = database.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get()
 
     if (!snapShot.exists) {
@@ -40,12 +65,25 @@ const config = {
     return userRef;
   }
 
+  export const addCollection = async (collectionKey, items) => {
+    const collectionRef = database.collection(collectionKey)
+
+    const batch = database.batch()
+
+    items.forEach(obj => {
+      const newDocRef = collectionRef.doc()
+      batch.set(newDocRef, obj)
+    })
+
+    return await batch.commit()
+  }
+
   // Initialize Firebase
   firebase.initializeApp(config);
   // firebase.analytics();
 
   export const auth = firebase.auth()
-  export const firestore = firebase.firestore()
+  export const database = firebase.firestore()
 
   // google auth with gmail
   const provider = new firebase.auth.GoogleAuthProvider()
