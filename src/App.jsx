@@ -46,7 +46,7 @@ function App({user, setUser, setProducts }) {
           <Route path="/" exact component={HomePage} />
           <Route path="/shop" exact component={ShopPage} />
           <Route path="/shop/:categoryID" exact component={CategoryPage} />
-          <Route path="/checkout" exact component={CheckoutPage} />
+          <Route path="/checkout"  exact render={ (props) => <CheckoutPage isAuthenticated={user} {...props}/>} />
           <Route path="/auth" render={() => user ? <Redirect to="/" /> : <Auth />} />
         </Switch>
     </Layout>	

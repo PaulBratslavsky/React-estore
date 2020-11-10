@@ -4,9 +4,10 @@ import PreviewCollection from '../../components/collection-preview'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { selectProductToArray } from '../../redux/products/products.selector'
+import WithSpinner from '../../components/with-spinner'
 
 function ShopPage({products}){
-        if (!products.length) return <h1>Loading</h1>
+        if (!products.length) return <WithSpinner />
         return <div className={styles['shop-page']}>
             { products.map((item) => {
                 return <PreviewCollection key={item.id} {...item} />

@@ -6,6 +6,9 @@ import CheckoutItem from '../../components/checkout-item'
 import { connect } from 'react-redux'
 // import StripeButton from '../../components/stripe-button'
 
+import AuthenticatedUser from '../../components/authenticated-user'
+const withAuth = AuthenticatedUser(CheckoutPage)
+
 const sectionNames = [ 'Product', 'Description', 'Quantity', 'Price', 'Remove' ]
 
 const HeaderBlock = ({sectionName}) => (
@@ -45,4 +48,4 @@ const mapStateToProps = createStructuredSelector({
     totalPrice: selectItemsCartTotal
 })
 
-export default connect(mapStateToProps)(CheckoutPage)
+export default connect(mapStateToProps)(withAuth)
