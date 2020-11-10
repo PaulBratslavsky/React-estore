@@ -7,11 +7,14 @@ export const selectProductItems = createSelector(
     (items) => items
 )
 
+export const selectProductIsFetching = createSelector(
+    [selectProducts],
+    (items) => items.isFetching
+)
+
 export const selectProductToArray = createSelector(
     [selectProducts],
-    (items) => {
-        return items ? Object.keys(items).map(key => items[key]) : []
-    }
+    ({items}) => items ? Object.keys(items).map(key => items[key]) : []
 )
 
 export const selectCategory = categoryID => createSelector(

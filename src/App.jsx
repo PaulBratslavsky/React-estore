@@ -6,15 +6,17 @@ import ShopPage from './pages/shop-page'
 import CheckoutPage from './pages/checkout-page'
 import Auth from './pages/auth'
 import { connect } from 'react-redux'
-import { auth, database, createUserProfileDocument, convertCollectionSnapshot } from './api/firebase'
+import { auth, createUserProfileDocument } from './api/firebase'
 import { setUser } from './redux/user/user.actions'
 import { createStructuredSelector } from 'reselect'
 import { selectCurrentUser } from './redux/user/user.selector'
+import {  selectProductIsFetching } from './redux/products/products.selector'
+
 
 import CategoryPage from './pages/category-page'
-import { setProducts } from './redux/products/products.actions'
+import { fetchProductsStartAsync } from './redux/products/products.actions'
 
-function App({user, setUser, setProducts }) {
+function App({user, setUser, isFetching, fetchProductsStartAsync }) {
 
   useEffect(() => {
     const unsubsribe = auth.onAuthStateChanged( async userAuth => { 
@@ -31,21 +33,14 @@ function App({user, setUser, setProducts }) {
   },[user, setUser])
 
   useEffect(() => {
-
-    const unsubsribe = database
-      .collection('collections')
-      .onSnapshot(snapshot => {
-        setProducts(convertCollectionSnapshot(snapshot))
-      })
-
-    return () => unsubsribe()
-  })
+    fetchProductsStartAsync()
+  },[fetchProductsStartAsync])
 
   return <Layout user={user} setUser={setUser}>
       <Switch>
           <Route path="/" exact component={HomePage} />
-          <Route path="/shop" exact component={ShopPage} />
-          <Route path="/shop/:categoryID" exact component={CategoryPage} />
+          <Route path="/shop" exact render={ (props) => <ShopPage isFetching={isFetching} {...props}/>} />
+          <Route path="/shop/:categoryID" exact render={ (props) => <CategoryPage isFetching={isFetching} {...props}/>} />
           <Route path="/checkout"  exact render={ (props) => <CheckoutPage isAuthenticated={user} {...props}/>} />
           <Route path="/auth" render={() => user ? <Redirect to="/" /> : <Auth />} />
         </Switch>
@@ -55,11 +50,7 @@ function App({user, setUser, setProducts }) {
 
 const mapStateToProps = createStructuredSelector({
   user: selectCurrentUser,
+  isFetching: selectProductIsFetching
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   setUser: user => dispatch(setUser(user)),
-//   setProducts: products => dispatch(setProducts(products))
-// })
-
-export default withRouter(connect(mapStateToProps, { setUser, setProducts })(App))
+export default withRouter(connect(mapStateToProps, { setUser, fetchProductsStartAsync })(App))
